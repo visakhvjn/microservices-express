@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  todo-service:
+    build: ./src/todo
+    ports:
+      - '3001:3001'
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/ms-todo-db
+    depends_on:
+      - mongodb
+
+  user-service:
+    build: ./src/user
+    ports:
+      - '3002:3002'
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/ms-user-db
+    depends_on:
+      - mongodb
+
+  api-gateway:
+    build: ./src/api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - todo-service
+      - user-service
+
+volumes:
+  mongo-data:
