@@ -27,5 +27,5 @@ This project is a simple microservices architecture built with Node.js, Express,
 
 2. **Make requests**
 
-   Requests to http://localhost:3000/user go to user-service container
-   Requests to http://localhost:3000/todo go to todo-service container
+   - Requests to http://localhost:3000/user go to user-service container
+   - Requests to http://localhost:3000/todo go to todo-service container
